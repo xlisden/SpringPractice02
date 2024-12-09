@@ -115,7 +115,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `spReadEmployeesPerProject`(
 	IN id_project INT
 )
 BEGIN
-	SELECT e.`id`, CONCAT(e.`name`, ' ', e.`last_name`) as employee FROM `bdspring02`.`assignments` as a
+	SELECT e.`id`, e.`cod`, e.`department`, e.`position`, e.`name`, e.`last_name` FROM `bdspring02`.`assignments` as a
     INNER JOIN `bdspring02`.`employees` as e ON e.`id` = a.`id_employee`
     WHERE a.`id_project` = id_project
     ;
@@ -135,4 +135,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-08 21:45:01
+-- Dump completed on 2024-12-08 22:17:09
