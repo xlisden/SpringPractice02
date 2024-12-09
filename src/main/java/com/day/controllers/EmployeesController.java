@@ -20,6 +20,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/employees")
+//@RequestMapping({"", "/", "/employees"}) //no utilizamos eso porque necesitamos que redireccione
 public class EmployeesController {
 	
 	@Autowired

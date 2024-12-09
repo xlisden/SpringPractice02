@@ -1,10 +1,11 @@
 package com.day.models;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 public class EmployeeDto {
 
-	@NotEmpty(message = "The name is required.")
+	@NotBlank(message = "The name is required.")
 	private String name;
 	@NotEmpty(message = "The last name is required.")
 	private String lastName;
@@ -13,6 +14,7 @@ public class EmployeeDto {
 	@NotEmpty(message = "The department is required.")
 	private String department;
 	@NotEmpty(message = "The position is required.")
+	
 	private String position;
 
 	public EmployeeDto() {
