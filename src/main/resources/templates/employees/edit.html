@@ -22,9 +22,10 @@
 		<p th:if="${#fields.hasErrors('position')}" th:errorclass="text-danger" th:errors="${employeeDto.position}"></p>
 		<input th:field="${employeeDto.department}" placeholder="department employee" class="form-control"> <p></p>
 		<p th:if="${#fields.hasErrors('department')}" th:errorclass="text-danger" th:errors="${employeeDto.department}"></p>
-		<br>
-		<input type="submit" value="Submit" class="btn btn-primary"> 
-		<a href="/employees" class="btn btn-outline-primary"> Return </a>
+		
+		<a href="/employees" class="btn btn-outline-primary mt-4"> Return to Employees </a>
+		<input type="submit" value="Submit" class="btn btn-primary mt-4"> 
+		<a href="/" class="btn btn-outline-primary mt-4"> Return to Assignments </a>
 	</form>
 	</div>
 </div>

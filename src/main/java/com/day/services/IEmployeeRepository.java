@@ -13,6 +13,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer>{
 //public interface IEmployeeRepository extends CrudRepository<Employee, Integer>{
 	
 	@Query(value = "CALL `bdspring02`.`spReadEmployeesPerProject`(:id_project)", nativeQuery = true)
-	List<Employee> spReadEmployeesPerProject(@Param("id_project") Integer idProject);
+	public List<Employee> spReadEmployeesPerProject(@Param("id_project") Integer idProject);
 
 }

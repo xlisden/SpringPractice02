@@ -8,54 +8,84 @@
 <body>
 
 <div class="container">
-	<br> <h2> Edit Project </h2> <br>
-	<div class="form-group">
-	<form method="post" enctype="multipart/form-data" th:object="${projectDto}">
-		<div class="row g-3">
-			<div class="col-md-6">
-				<div class="form-floating mb-3">
-					<input th:field="${project.id}" id="floatingId" readonly  placeholder="id" class="form-control"> <p></p>
-					<label for="floatingId">Id </label> 
-				</div>	
+	<h2 class="mt-5"> Edit Project </h2>
+
+	<div class="row mt-4">
+	<div class="col">
+		<div class="form-group">
+		<form method="post" enctype="multipart/form-data" th:object="${projectDto}">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="form-floating mb-3">
+						<input th:field="${project.id}" id="floatingId" name="floatingId" readonly  placeholder="id" class="form-control"> <p></p>
+						<label for="floatingId">Id </label> 
+					</div>	
+				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-2">
+					<div class="form-floating mb-3">
+						<input th:field="*{cod}" type="text" id="floatingCod" placeholder="cod" class="form-control"> <p></p>
+						<label for="floatingCod">Code </label> 
+						<p th:if="${#fields.hasErrors('cod')}" th:errorclass="text-danger" th:errors="*{cod}"></p> 
+					</div>	
+				</div>
+				<div class="col-md-6">
+					<div class="form-floating mb-3">
+						<input th:field="*{name}" type="text" id="floatingName" placeholder="name" class="form-control"> <p></p>
+						<label for="floatingName">Name </label> 
+						<p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger" th:errors="*{name}"></p> 
+					</div>	
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-4">
+					<div class="form-floating mb-3">
+						<input th:field="*{budget}" type="number" id="floatingBudget" placeholder="budget" class="form-control"> <p></p>
+						<label for="floatingBudget">Budget </label> 
+						<p th:if="${#fields.hasErrors('budget')}" th:errorclass="text-danger" th:errors="*{budget}"></p> 
+					</div>	
+				</div>
+				<div class="col-md-4">
+					<div class="form-floating mb-3">
+						<input th:field="*{cost}" type="number" id="floatingCost" placeholder="cost" class="form-control"> <p></p>
+						<label for="floatingCost">Cost </label> 
+						<p th:if="${#fields.hasErrors('cost')}" th:errorclass="text-danger" th:errors="*{cost}"></p> 
+					</div>	
+				</div>
+			</div>
+	    	
+	    	<a href="/projects" class="btn btn-outline-primary"> Return to Projects </a>
+	    	<input type="submit" value="Submit" class="btn btn-primary">
+	    	<a href="/" class="btn btn-outline-primary"> Return to Assignments </a>
+		</form>
 		</div>
-		<div class="row g-3">
-			<div class="col-md-2">
-				<div class="form-floating mb-3">
-					<input th:field="*{cod}" type="text" id="floatingCod" placeholder="cod" class="form-control"> <p></p>
-					<label for="floatingCod">Code </label> 
-					<p th:if="${#fields.hasErrors('cod')}" th:errorclass="text-danger" th:errors="*{cod}"></p> 
-				</div>	
-			</div>
-			<div class="col-md-4">
-				<div class="form-floating mb-3">
-					<input th:field="*{name}" type="text" id="floatingName" placeholder="name" class="form-control"> <p></p>
-					<label for="floatingName">Name </label> 
-					<p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger" th:errors="*{name}"></p> 
-				</div>	
-			</div>
-		</div>
-		<div class="row g-3">
-			<div class="col-md-3">
-				<div class="form-floating mb-3">
-					<input th:field="*{budget}" type="number" id="floatingBudget" placeholder="budget" class="form-control"> <p></p>
-					<label for="floatingBudget">Budget </label> 
-					<p th:if="${#fields.hasErrors('budget')}" th:errorclass="text-danger" th:errors="*{budget}"></p> 
-				</div>	
-			</div>
-			<div class="col-md-3">
-				<div class="form-floating mb-3">
-					<input th:field="*{cost}" type="number" id="floatingCost" placeholder="cost" class="form-control"> <p></p>
-					<label for="floatingCost">Cost </label> 
-					<p th:if="${#fields.hasErrors('cost')}" th:errorclass="text-danger" th:errors="*{cost}"></p> 
-				</div>	
-			</div>
-		</div>
-    	<br> <input type="submit" value="Submit" class="btn btn-primary">
-    	<a href="/projects" class="btn btn-outline-primary"> Return </a>
-	</form>
-    
 	</div>
+	<div class="col-5">
+		<table class="table table-sm">
+			<thead>
+				<tr>
+					<th> Id </th>
+					<th> Cod </th>
+					<th> Employee </th>
+					<th> Operations </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="asignacion: ${asignaciones}">
+					<td th:text="${asignacion.employee.id}"></td>
+					<td th:text="${asignacion.employee.cod}"></td>
+					<td th:text="${asignacion.employee.name}+ ' ' +${asignacion.employee.lastName}"></td>
+					<td>
+						<a th:href="@{/projects/assign(idEmployee=${asignacion.employee.id}, idProject=${project.id})}" th:if="${!asignacion.isAssignment}" class="btn btn-warning btn-sm"> Assign </a>
+						<a th:href="@{/projects/remove(idEmployee=${asignacion.employee.id}, idProject=${project.id})}" th:if="${asignacion.isAssignment}" class="btn btn-danger btn-sm"> Remove </a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</div>
+	
 </div>
 
 </body>
