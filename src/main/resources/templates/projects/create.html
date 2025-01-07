@@ -8,18 +8,18 @@
 <body>
 
 <div class="container">
-	<br> <h2> New Project </h2> <br>
+	<h2 class="mt-5">New Project</h2>
 	<div class="form-group">
 	<form method="post" enctype="multipart/form-data" th:object="${projectDto}">
-		<div class="row g-3">
-			<div class="col-md-2">
+		<div class="row  mt-4">
+			<div class="col-2">
 				<div class="form-floating mb-3">
 					<input th:field="*{cod}" type="text" id="floatingCod" placeholder="cod" class="form-control"> <p></p>
 					<label for="floatingCod">Code </label> 
 					<p th:if="${#fields.hasErrors('cod')}" th:errorclass="text-danger" th:errors="*{cod}"></p> 
 				</div>	
 			</div>
-			<div class="col-md-4">
+			<div class="col-3">
 				<div class="form-floating mb-3">
 					<input th:field="*{name}" type="text" id="floatingName" placeholder="name" class="form-control"> <p></p>
 					<label for="floatingName">Name </label> 
@@ -27,15 +27,15 @@
 				</div>	
 			</div>
 		</div>
-		<div class="row g-3">
-			<div class="col-md-3">
+		<div class="row ">
+			<div class="col-3">
 				<div class="form-floating mb-3">
 					<input th:field="*{budget}" type="number" id="floatingBudget" placeholder="budget" class="form-control"> <p></p>
 					<label for="floatingBudget">Budget </label> 
 					<p th:if="${#fields.hasErrors('budget')}" th:errorclass="text-danger" th:errors="*{budget}"></p> 
 				</div>	
 			</div>
-			<div class="col-md-3">
+			<div class="col-2">
 				<div class="form-floating mb-3">
 					<input th:field="*{cost}" type="number" id="floatingCost" placeholder="cost" class="form-control"> <p></p>
 					<label for="floatingCost">Cost </label> 
@@ -43,7 +43,7 @@
 				</div>	
 			</div>
 		</div>
-    	<br> <input type="submit" value="Submit" class="btn btn-primary">
+    	<input type="submit" value="Submit" class="btn btn-primary">
     	<a href="/projects" class="btn btn-outline-primary"> Return </a>
 	</form>
     

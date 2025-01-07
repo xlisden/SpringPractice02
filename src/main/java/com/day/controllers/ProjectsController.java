@@ -31,11 +31,11 @@ import jakarta.validation.Valid;
 public class ProjectsController {
 	
 	@Autowired
-	private IProjectRepository projectRepository;
+	private IAssignmentRepository assignmentRepository;
 	@Autowired
 	private IEmployeeRepository employeeRepository;
 	@Autowired
-	private IAssignmentRepository assignmentRepository;
+	private IProjectRepository projectRepository;
 	
 	@GetMapping({"", "/"})
 	public String showProjects(Model model) {
@@ -143,7 +143,6 @@ public class ProjectsController {
 		for(Employee employee: employees) {
 			Asignacion asignacion = new Asignacion(employee, isEmployeeAsignment(idProject, employee.getId()));
 			asignaciones.add(asignacion);
-			System.out.println(asignacion.toString());
 		}
 		return asignaciones;
 	}

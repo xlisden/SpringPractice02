@@ -8,20 +8,50 @@
 <body>
 
 <div class="container">
-	<br> <h3> New employee </h3> <br>
+	<h2 class="mt-5">New Employee</h2>
 	<div class="form-group">
 	<form method="post" enctype="multipart/form-data" th:object="${employeeDto}">
-		<input th:field="${employeeDto.cod}" placeholder="cod employee" class="form-control"> <p></p>
-		<p th:if="${#fields.hasErrors('cod')}" th:errorclass="text-danger" th:errors="${employeeDto.cod}"></p> 
-		<input th:field="${employeeDto.name}" placeholder="name employee" class="form-control"> <p></p>
-		<p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger" th:errors="${employeeDto.name}"></p> 
-		<input th:field="${employeeDto.lastName}" placeholder="last name employee" class="form-control"> <p></p>
-		<p th:if="${#fields.hasErrors('lastName')}" th:errorclass="text-danger" th:errors="${employeeDto.lastName}"></p> 
-		<input th:field="${employeeDto.position}" placeholder="position employee" class="form-control"> <p></p>
-		<p th:if="${#fields.hasErrors('position')}" th:errorclass="text-danger" th:errors="${employeeDto.position}"></p>
-		<input th:field="${employeeDto.department}" placeholder="department employee" class="form-control"> <p></p>
-		<p th:if="${#fields.hasErrors('department')}" th:errorclass="text-danger" th:errors="${employeeDto.department}"></p>
-		<br>
+			<div class="row mt-4">
+				<div class="col-5">
+					<div class="form-floating mb-3">
+						<input th:field="${employeeDto.cod}" id="floatCod" placeholder="cod" class="form-control"> <p></p>
+						<p th:if="${#fields.hasErrors('cod')}" th:errorclass="text-danger" th:errors="${employeeDto.cod}"></p>
+						<label for="floatCod">Cod</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2">
+					<div class="form-floating mb-3">
+						<input th:field="${employeeDto.name}" id="floatName" placeholder="name" class="form-control"> <p></p>
+						<p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger" th:errors="${employeeDto.name}"></p>
+						<label for="floatName">Name</label>
+					</div>	
+				</div>
+				<div class="col-3">
+					<div class="form-floating mb-3">
+						<input th:field="${employeeDto.lastName}" id="floatLastName" placeholder="lastName" class="form-control"> <p></p>
+						<p th:if="${#fields.hasErrors('lastName')}" th:errorclass="text-danger" th:errors="${employeeDto.lastName}"></p>
+						<label for="floatLastName">Last Name</label>
+					</div>	
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<div class="form-floating mb-3">
+						<input th:field="${employeeDto.position}" id="floatPosition" placeholder="position" class="form-control"> <p></p>
+						<p th:if="${#fields.hasErrors('position')}" th:errorclass="text-danger" th:errors="${employeeDto.position}"></p>
+						<label for="floatPosition">Position</label>
+					</div>	
+				</div>
+				<div class="col-2">
+					<div class="form-floating mb-3">
+						<input th:field="${employeeDto.department}" id="floatDepartment" placeholder="department employee" class="form-control"> <p></p>
+						<p th:if="${#fields.hasErrors('department')}" th:errorclass="text-danger" th:errors="${employeeDto.department}"></p>
+						<label for="floatDepartment">Department</label>
+					</div>	
+				</div>
+			</div>
 		<input type="submit" value="Submit" class="btn btn-primary"> 
 		<a href="/employees" class="btn btn-outline-primary"> Return </a>
 	</form>

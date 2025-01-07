@@ -8,11 +8,15 @@
 <body>
 
 <div class="container">
-	<section  th:each="asignacion: ${asignaciones}"  th:object="${asignacion}" class="py-4">
-		<div class="row g-2">
-			<h3 th:text="${asignacion.project.name}" class="col-md-10"></h3>
+	<div class="row justify-content-center">
+		<div class="col-2 mt-5"> <a href="/projects" class="btn btn-primary"> Go to Projects</a> </div>
+		<div class="col-2 mt-5"> <a href="/employees" class="btn btn-primary"> Go to Employees</a> </div>
+	</div>
+	<section  th:each="asignacion: ${asignaciones}"  th:object="${asignacion}" class="py-3">
+		<div class="row g-2 mt-2">
+			<h3 th:text="${asignacion.project.name}" class="col-md-10 "></h3>
 			<a th:href="@{/projects/edit(id=${asignacion.project.id})}" class="btn btn-warning col mx-1" > Edit </a> 
-			<a th:href="@{/projects/delete(id=${asignacion.project.id})}" class="btn btn-danger col mx-1" > Delete </a>
+			<a th:href="@{/projects/delete(id=${asignacion.project.id})}" onclick="return confirm('Do you want to delete this register?')" class="btn btn-danger col mx-1" > Delete </a>
 		</div>
 		<hr>
 		<div class="row g-2">
@@ -30,8 +34,9 @@
 						<td th:text="${employee.cod}"></td>
 						<td th:text="${employee.name}+ ' ' +${employee.lastName}"></td>
 						<td>
-							<a th:href="@{/employees/edit(id=${employee.id})}" class="btn btn-warning"> Edit </a>
-							<a th:href="@{/employees/delete(id=${employee.id})}" onclick="return confirm('Do you want to delete this register?')" class="btn btn-danger"> Delete </a>
+							<a th:href="@{/employees/edit(id=${employee.id})}" class="btn btn-warning btn-sm"> Edit </a>
+<!-- 							<a th:href="@{/employees/delete(id=${employee.id})}" onclick="return confirm('Do you want to delete this register?')" class="btn btn-danger btn-sm"> Delete </a> -->
+							<a th:href="@{/assignments/remove(idEmployee=${employee.id}, idProject=${asignacion.project.id})}" onclick="return confirm('Do you want to remove this employee from the project?')" class="btn btn-danger btn-sm"> Remove </a>
 						</td>
 					</tr>
 				</tbody>

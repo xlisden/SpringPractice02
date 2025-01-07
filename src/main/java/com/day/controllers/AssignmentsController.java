@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.day.beans.Asignacion;
 import com.day.beans.Employee;
@@ -19,7 +20,7 @@ import com.day.services.IEmployeeRepository;
 import com.day.services.IProjectRepository;
 
 @Controller
-@RequestMapping({"", "/"})
+@RequestMapping({"", "/", "/assignments"})
 public class AssignmentsController {
 	
 	@Autowired
@@ -47,6 +48,17 @@ public class AssignmentsController {
 		model.addAttribute("assignments", assignments);
 		model.addAttribute("asignaciones", asignaciones);
 		return "assignments/list";
+	}
+	
+	@GetMapping("/remove")
+	public String removeEmployee(@RequestParam int idEmployee, @RequestParam int idProject) {
+		try {
+			int id = assignmentRepository.fnGetIdAsignment(idProject, idEmployee);
+			assignmentRepository.deleteById(id);
+		} catch (Exception e) {
+			System.out.println("removeEmployee() " + e.getMessage());
+		}
+		return "redirect:/";
 	}
 	
 }

@@ -1,5 +1,8 @@
 package com.day.controllers;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +15,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.day.beans.Asignacion;
+import com.day.beans.Assignment;
 import com.day.beans.Employee;
+import com.day.beans.Project;
 import com.day.models.EmployeeDto;
+import com.day.services.IAssignmentRepository;
 import com.day.services.IEmployeeRepository;
+import com.day.services.IProjectRepository;
 
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/employees")
-//@RequestMapping({"", "/", "/employees"}) //no utilizamos eso porque necesitamos que redireccione
 public class EmployeesController {
 	
 	@Autowired
+	private IAssignmentRepository assignmentRepository;
+	@Autowired
 	private IEmployeeRepository employeeRepository;
+	@Autowired
+	private IProjectRepository projectRepository;
 	
 	@GetMapping( {"", "/"} )
 	public String showEmployeesList(Model model) {
@@ -87,6 +98,9 @@ public class EmployeesController {
 			employeeDto.setName(employee.getName());
 			employeeDto.setPosition(employee.getPosition());
 			model.addAttribute("employeeDto", employeeDto);
+			
+			model.addAttribute("projects", projectRepository.findAll());
+			model.addAttribute("asignaciones", assignmentEmployees(id));
 		} catch (Exception e) {
 			System.out.println("showEditEmployeePage() " + e.getMessage());
 			return "redirect:/employees";
@@ -117,5 +131,43 @@ public class EmployeesController {
 		return "redirect:/employees";
 	}
 
+	@GetMapping("/assign")
+	public String assignEmployee(@RequestParam int idEmployee, @RequestParam int idProject) {
+		try {
+			Assignment assignment = new Assignment();
+			assignment.setIdProject(idProject);
+			assignment.setIdEmployee(idEmployee);
+			assignment.setDateAssignment(Date.valueOf(LocalDate.now()));
+			assignmentRepository.save(assignment);
+		} catch (Exception e) {
+			System.out.println("assignEmployee() " + e.getMessage());
+		}
+		return "redirect:/employees/edit?id="+idEmployee;
+	}
+
+	@GetMapping("/remove")
+	public String removeEmployee(@RequestParam int idEmployee, @RequestParam int idProject) {
+		try {
+			int id = assignmentRepository.fnGetIdAsignment(idProject, idEmployee);
+			assignmentRepository.deleteById(id);
+		} catch (Exception e) {
+			System.out.println("removeEmployee() " + e.getMessage());
+		}
+		return "redirect:/employees/edit?id="+idEmployee;
+	}
+
+	private boolean isEmployeeAsignment(int idProject, int idEmployee) {
+		return assignmentRepository.fnIsEmployeeAsignment(idProject, idEmployee);
+	}
+	
+	private List<Asignacion> assignmentEmployees(int idEmployee) {
+		List<Asignacion> asignaciones = new ArrayList<Asignacion>();
+		List<Project> projects = projectRepository.findAll();
+		for(Project project: projects) {
+			Asignacion asignacion = new Asignacion(project, isEmployeeAsignment(project.getId(), idEmployee));
+			asignaciones.add(asignacion);
+		}
+		return asignaciones;
+	}
 	
 }

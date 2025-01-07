@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Asignacion {
 
+	private List<Project> projects;
 	private Project project;
 	private List<Employee> employees;
 	private Employee employee;
@@ -19,6 +20,11 @@ public class Asignacion {
 
 	public Asignacion(Employee employee, boolean isAssignment) {
 		this.employee = employee;
+		this.isAssignment = isAssignment;
+	}
+
+	public Asignacion(Project project, boolean isAssignment) {
+		this.project = project;
 		this.isAssignment = isAssignment;
 	}
 
@@ -54,9 +60,12 @@ public class Asignacion {
 		this.isAssignment = isAssignment;
 	}
 
-	@Override
-	public String toString() {
-		return "Asignacion [employee=" + employee + ", isAssignment=" + isAssignment + "]";
+	public List<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 }
